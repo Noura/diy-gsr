@@ -21,11 +21,12 @@ int smoothReading = 0;
 void loop() {
   addToArray();
   //smoothReading = 0.5 * findAverage() + 0.5 * smoothReading;
-  smoothReading = findAverage();
+  //smoothReading = findAverage();
   //smoothReading = filter();
+  smoothReading = smoothArray[0];
   Serial.print(1023 - smoothReading);
   Serial.print(",");
-  delay(10);
+  delay(50);
 }
 
 void addToArray(){
