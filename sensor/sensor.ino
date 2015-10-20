@@ -3,12 +3,8 @@ Galvanic Skin Response meter
 Chris Kairalla
  */
 #define smooth 32  //2 smooths the last two nums, 3 smooths the last 3...
-int analogValueSmooth = 0;
-int thresh = 10;
 int smoothArray[smooth];
-//set baud rate
 int baud = 9600;
-boolean bluetooth = false;
 
 #define SENSOR_PIN 0
 
