@@ -32,6 +32,18 @@ numtaps = 33
 # Use firwin to create a lowpass FIR filter (use firwin FTW)
 fir_coeff = firwin(numtaps, cutoff_hz/nyq_rate)
 
+#fir_coeff = firwin(numtaps, cutoff = 0.4, window='hamming')
+
+# http://mpastell.com/2010/01/18/fir-with-scipy/
+# lowpass filters look like this
+# a = firwin(n, cutoff=0.3, window='blackmanharris')
+# highpass filters look like this
+# b = - firwin(n, cutoff=0.5, window='blackmanharris')
+# b[n/2] = b[n/2] + 1
+# combine them to make a bandpass filter
+# d = - (a + b)
+# d[n/2] = d[n/2] + 1
+
 # Use lfilter to filter the signal with the FIR filter
 filtered_signal = lfilter(fir_coeff, 1.0, signal)
 
@@ -51,11 +63,11 @@ figure(1)
 plot(t, signal)
 
 # Plot the filtered signal, shifted to compensate for the phase delay
-plot(t-delay, filtered_signal, 'r-')
+#plot(t-delay, filtered_signal, 'r-')
 
 # Plot just the "good" part of the filtered signal.  The first N-1
 # samples are "corrupted" by the initial conditions.
-plot(t[warmup:]-delay, filtered_signal[warmup:], 'g', linewidth=4)
+plot(t[warmup:]-delay, filtered_signal[warmup:], 'g', linewidth=2)
 
 grid(True)
 
@@ -68,6 +80,6 @@ def print_values(label, values):
     var = "float32_t %s[%d]" % (label, len(values))
     print "%-30s = {%s}" % (var, ', '.join(["%+.10f" % x for x in values]))
 
-print_values('signal', signal)
-print_values('fir_coeff', fir_coeff)
-print_values('filtered_signal', filtered_signal)
+#print_values('signal', signal)
+#print_values('fir_coeff', fir_coeff)
+#print_values('filtered_signal', filtered_signal)
